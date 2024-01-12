@@ -4,7 +4,7 @@ export default class Navi extends Component{
     render(){
         return(
             <div>
-              <h2>Navi Component</h2> 
+              <h2>{this.props.info.title}</h2> 
             </div>
         )
     }
