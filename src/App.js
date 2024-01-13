@@ -1,34 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Navi from './Navi';
 import Category from './Category';
 import Product from './Product';
 import { Col, Container, Row } from 'reactstrap';
 
-function App() {
-  const naviInfo={title:"Navi Component"}
-  const categoryInfo = {title:"Category List"};
-  const productInfo = {title:"Product List"};
+export default class App extends Component {
+  state = {currentCategory: ""}
 
-  return (
-    <div>
-      <Container>
-        <Row>
-          <Navi info={naviInfo}/>
-        </Row>
-        
-        <Row>
-          <Col xs="3">
-          <Category info={categoryInfo}/>
-          </Col>
+  changeCategory = (category) => {
+    this.setState({ currentCategory: category.categoryName });
+  }
 
-          <Col xs="9">
-          <Product info={productInfo}/>
-          </Col>
-          
-        </Row>
-      </Container>
-    </div>
-  );
+
+  render() {
+    let naviInfo = { title: "Navi Component" }
+    let categoryInfo = { title: "Category List" };
+    let productInfo = { title: "Product List" };
+
+    return (
+      <div>
+        <Container>
+          <Row>
+            <Navi info={naviInfo} />
+          </Row>
+
+          <Row>
+            <Col xs="3">
+              <Category currentCategory={this.state.currentCategory} changeCategory={this.changeCategory} info={categoryInfo} />
+            </Col>
+
+            <Col xs="9">
+              <Product currentCategory={this.state.currentCategory} info={productInfo} />
+            </Col>
+
+          </Row>
+        </Container>
+      </div>
+    );
+  }
 }
-
-export default App;
