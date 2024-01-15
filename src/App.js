@@ -9,14 +9,21 @@ export default class App extends Component {
 
   changeCategory = (category) => {
     this.setState({ currentCategory: category.categoryName });
+    this.getProducts(category.id);
   }
 
   componentDidMount(){
     this.getProducts();
   }
 
-  getProducts = () => {
-    fetch("http://localhost:3000/products")
+  getProducts = (categoryId) => {
+    let url = "http://localhost:3000/products";
+
+    if(categoryId){
+      url += "?categoryId=" + categoryId;
+    }
+
+    fetch(url)
     .then(response => response.json())
     .then(data => this.setState({products:data}))
   }
@@ -24,7 +31,7 @@ export default class App extends Component {
   render() {
     let naviInfo = { title: "Navi Component" }
     let categoryInfo = { title: "Category List" };
-    let productInfo = { title: "Product List" };
+    let productInfo = { title: "Products" };
 
     return (
       <div>
