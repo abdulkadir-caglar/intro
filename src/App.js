@@ -2,23 +2,8 @@ import React, { Component } from 'react';
 import Navi from './Navi';
 import Category from './Category';
 import Product from './Product';
-import {
-  Col,
-  Container,
-  Row,
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText,
-} from 'reactstrap';
+import { Col, Container, Row } from 'reactstrap';
+import alertify from 'alertifyjs';
 
 export default class App extends Component {
   state = { currentCategory: "", products: [], cart: [] }
@@ -53,6 +38,7 @@ export default class App extends Component {
       newCart.push({ product: product, quantity: 1 });
     }
     this.setState({ cart: newCart })
+    alertify.success(product.productName + " added to cart.", 1)
   }
   removeFromCart = (product) => {
     let newCart = this.state.cart.filter(c => c.product.id !== product.id)
