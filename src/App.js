@@ -21,7 +21,7 @@ import {
 } from 'reactstrap';
 
 export default class App extends Component {
-  state = { currentCategory: "", products: [], cart:[]}
+  state = { currentCategory: "", products: [], cart: [] }
 
   changeCategory = (category) => {
     this.setState({ currentCategory: category.categoryName });
@@ -44,16 +44,20 @@ export default class App extends Component {
       .then(data => this.setState({ products: data }))
   }
 
-  addToCart = (product) =>{
+  addToCart = (product) => {
     let newCart = this.state.cart;
     var addedItem = newCart.find(c => c.product.id === product.id)
-    if(addedItem){
+    if (addedItem) {
       addedItem.quantity += 1;
-    }else{
-      newCart.push({product:product , quantity:1});
+    } else {
+      newCart.push({ product: product, quantity: 1 });
     }
+    this.setState({ cart: newCart })
+  }
+  removeFromCart = (product) => {
+    let newCart = this.state.cart.filter(c => c.product.id !== product.id)
     this.setState({cart: newCart})
-}
+  }
 
   render() {
     let naviInfo = { title: "Navi Component" }
@@ -63,7 +67,7 @@ export default class App extends Component {
     return (
       <div>
         <Container>
-          <Navi info={naviInfo} cart={this.state.cart} />
+          <Navi info={naviInfo} cart={this.state.cart} removeFromCart = {this.removeFromCart} />
 
           <Row>
             <Col xs="3">
@@ -71,11 +75,11 @@ export default class App extends Component {
             </Col>
 
             <Col xs="9">
-              <Product 
-              products={this.state.products}
-              addToCart = {this.addToCart} 
-              currentCategory={this.state.currentCategory} 
-              info={productInfo} />
+              <Product
+                products={this.state.products}
+                addToCart={this.addToCart}
+                currentCategory={this.state.currentCategory}
+                info={productInfo} />
             </Col>
 
           </Row>
