@@ -4,6 +4,9 @@ import Category from './Category';
 import Product from './Product';
 import { Col, Container, Row } from 'reactstrap';
 import alertify from 'alertifyjs';
+import { Route, Routes } from 'react-router-dom';
+import NotFound from './NotFound';
+import CartList from './CartList';
 
 export default class App extends Component {
   state = { currentCategory: "", products: [], cart: [] }
@@ -42,7 +45,7 @@ export default class App extends Component {
   }
   removeFromCart = (product) => {
     let newCart = this.state.cart.filter(c => c.product.id !== product.id)
-    this.setState({cart: newCart})
+    this.setState({ cart: newCart })
   }
 
   render() {
@@ -53,7 +56,7 @@ export default class App extends Component {
     return (
       <div>
         <Container>
-          <Navi info={naviInfo} cart={this.state.cart} removeFromCart = {this.removeFromCart} />
+          <Navi info={naviInfo} cart={this.state.cart} removeFromCart={this.removeFromCart} />
 
           <Row>
             <Col xs="3">
@@ -61,11 +64,20 @@ export default class App extends Component {
             </Col>
 
             <Col xs="9">
-              <Product
-                products={this.state.products}
-                addToCart={this.addToCart}
-                currentCategory={this.state.currentCategory}
-                info={productInfo} />
+              <Routes>
+                <Route path="/" element={ 
+                  <Product
+                    products={this.state.products}
+                    addToCart={this.addToCart}
+                    currentCategory={this.state.currentCategory}
+                    info={productInfo}
+                  />
+                }
+                />
+                <Route exact path="/cart" element={<CartList />} />
+                <Route path= "*" element={<NotFound />} />
+              </Routes>
+
             </Col>
 
           </Row>
