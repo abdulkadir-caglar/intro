@@ -9,6 +9,7 @@ import {
   NavLink,
 } from 'reactstrap';
 import CartSummary from './CartSummary';
+import { Link } from 'react-router-dom';
 
 class Navi extends Component {
   constructor(props) {
@@ -41,6 +42,12 @@ class Navi extends Component {
                 <NavLink href="https://github.com/abdulkadir-caglar">
                   GitHub
                 </NavLink>
+                <NavLink>
+                  <Link to="form1">
+                    Form Demo 1
+                  </Link>
+                </NavLink>
+                
               </NavItem>
             </Nav>
           </Collapse>
