@@ -34,7 +34,7 @@ class Navi extends Component {
         <Navbar {...this.props}>
           <NavbarBrand href="/">Shopping</NavbarBrand>
           <h3>Product Count: {this.props.cart.length}</h3>
-          <CartSummary cart ={this.props.cart} removeFromCart = {this.props.removeFromCart}/>
+          <CartSummary cart={this.props.cart} removeFromCart={this.props.removeFromCart} />
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="me-auto" navbar>
@@ -47,7 +47,12 @@ class Navi extends Component {
                     Form Demo 1
                   </Link>
                 </NavLink>
-                
+                <NavLink>
+                  <Link to="form2">
+                    Form Demo 2
+                  </Link>
+                </NavLink>
+
               </NavItem>
             </Nav>
           </Collapse>
